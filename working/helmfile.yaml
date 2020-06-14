@@ -1,0 +1,31 @@
+---
+helmDefaults:
+  createNamespace: true
+
+repositories:
+  - name: incubator
+    url: http://storage.googleapis.com/kubernetes-charts-incubator
+
+environments:
+  default:
+    secrets:
+      - secrets.yaml
+
+releases:
+  - name: secrets-example
+    namespace: default
+    chart: incubator/raw
+    version: 0.2.3
+    installed: true
+    labels:
+      namespace: default
+      chart: raw
+    values:
+      - resources:
+          - apiVersion: v1
+            kind: Secret
+            metadata:
+              name: workaround
+            type: Opaque
+            data:
+              secret: {{ .Values.foo.bar }}

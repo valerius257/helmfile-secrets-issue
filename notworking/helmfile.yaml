@@ -1,0 +1,21 @@
+---
+helmDefaults:
+  createNamespace: true
+
+environments:
+  default:
+    secrets:
+      - secrets.yaml
+
+helmfiles:
+  - path: default/helmfile.yaml
+
+releases:
+  - name: helmfile-workaround-704
+    namespace: default
+    chart: incubator/raw
+    version: 0.2.3
+    installed: false
+    labels:
+      namespace: default
+      chart: raw
